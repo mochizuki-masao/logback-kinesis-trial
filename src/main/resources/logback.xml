@@ -1,0 +1,22 @@
+<configuration>
+    <appender name="KINESIS" class="com.gu.logback.appender.kinesis.FirehoseAppender">
+        <region>ap-northeast-1</region>
+        <streamName>logback-firehose</streamName>
+        <encoding>UTF-8</encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC_KINESIS" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="KINESIS"/>
+    </appender>
+
+    <logger name="org.springframework" level="WARN" />
+    <logger name="org.apache.http" level="WARN" />
+    <logger name="com.amazonaws" level="WARN" />
+
+    <root level="DEBUG">
+        <appender-ref ref="KINESIS"/>
+    </root>
+</configuration>
